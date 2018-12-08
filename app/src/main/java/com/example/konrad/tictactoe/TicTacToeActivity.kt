@@ -3,8 +3,10 @@ package com.example.konrad.tictactoe
 import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.ImageButton
+import kotlinx.android.synthetic.main.activity_tic_tac_toe.*
 
 class TicTacToeActivity : AppCompatActivity() {
 
@@ -22,11 +24,20 @@ class TicTacToeActivity : AppCompatActivity() {
     var player1Options: ArrayList<Int> = ArrayList()
     var player2Options: ArrayList<Int> = ArrayList()
     var allDisabledImages: ArrayList<ImageButton?> = ArrayList()
+    var imageButtons: ArrayList<ImageButton> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tic_tac_toe)
-
+        imageButtons.add(imgButton1)
+        imageButtons.add(imgButton2)
+        imageButtons.add(imgButton3)
+        imageButtons.add(imgButton4)
+        imageButtons.add(imgButton5)
+        imageButtons.add(imgButton6)
+        imageButtons.add(imgButton7)
+        imageButtons.add(imgButton8)
+        imageButtons.add(imgButton9)
         currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
     }
 
@@ -63,18 +74,60 @@ class TicTacToeActivity : AppCompatActivity() {
             allDisabledImages.add(selectedImageButton)
             currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
         }
+        checkWinner()
+    }
+
+    private fun checkWinner() {
+        if((player1Options.contains(1) && player1Options.contains(2) && player1Options.contains(3)) ||
+            (player1Options.contains(4) && player1Options.contains(5) && player1Options.contains(6)) ||
+            (player1Options.contains(7) && player1Options.contains(8) && player1Options.contains(9)) ||
+            (player1Options.contains(1) && player1Options.contains(4) && player1Options.contains(7)) ||
+            (player1Options.contains(2) && player1Options.contains(5) && player1Options.contains(8)) ||
+            (player1Options.contains(3) && player1Options.contains(6) && player1Options.contains(9)) ||
+            (player1Options.contains(3) && player1Options.contains(5) && player1Options.contains(7)) ||
+            (player1Options.contains(1) && player1Options.contains(5) && player1Options.contains(9))) {
+            winner = WINNER.PLAYER_ONE
+        } else if((player2Options.contains(1) && player2Options.contains(2) && player2Options.contains(3)) ||
+            (player2Options.contains(4) && player2Options.contains(5) && player2Options.contains(6)) ||
+            (player2Options.contains(7) && player2Options.contains(8) && player2Options.contains(9)) ||
+            (player2Options.contains(1) && player2Options.contains(4) && player2Options.contains(7)) ||
+            (player2Options.contains(2) && player2Options.contains(5) && player2Options.contains(8)) ||
+            (player2Options.contains(3) && player2Options.contains(6) && player2Options.contains(9)) ||
+            (player2Options.contains(3) && player2Options.contains(5) && player2Options.contains(7)) ||
+            (player2Options.contains(1) && player2Options.contains(5) && player2Options.contains(9))) {
+            winner = WINNER.PLAYER_TWO
+        } else if (allDisabledImages.size == 9){
+            winner = WINNER.DRAW
+        }
+
+        if (winner == WINNER.PLAYER_ONE) {
+            createAlert("Player One Wins", "Good job", AlertDialog.BUTTON_POSITIVE, "OK", false)
+        } else if(winner == WINNER.PLAYER_TWO) {
+            createAlert("Player Two Wins", "Good job", AlertDialog.BUTTON_POSITIVE, "OK", false)
+        } else if(winner == WINNER.DRAW) {
+            createAlert("It's a draw", "Good job", AlertDialog.BUTTON_POSITIVE, "OK", false)
+        }
+    }
+
+    private fun createAlert(title: String, message: String, buttonType: Int, buttonText: String, isCancelable: Boolean) {
+        val alertDialog: AlertDialog = AlertDialog.Builder(this@TicTacToeActivity).create()
+        alertDialog.setTitle(title)
+        alertDialog.setMessage(message)
+        alertDialog.setButton(buttonType, buttonText) {
+            dialog, whinch ->
+            resetGame()
+        }
+        alertDialog.setCancelable(isCancelable)
+        alertDialog.show()
+    }
+
+    private fun resetGame() {
+        winner = null
+        currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
+        imageButtons.map { imageButton -> imageButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.empty)) }
+        allDisabledImages.map { imageButton -> imageButton?.isEnabled = true  }
+        allDisabledImages.clear()
+        player1Options.clear()
+        player2Options.clear()
     }
 }
-
-
-//when (optionNumber) {
-//    1 -> imgButton1.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    2 -> imgButton2.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    3 -> imgButton3.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    4 -> imgButton4.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    5 -> imgButton5.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    6 -> imgButton6.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    7 -> imgButton7.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    8 -> imgButton8.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//    9 -> imgButton9.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-//}
