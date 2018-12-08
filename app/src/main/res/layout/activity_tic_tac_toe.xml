@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:gravity="center"
     tools:context=".TicTacToeActivity">
 
@@ -20,6 +21,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="TicTacToe"
+            android:textColor="@android:color/background_light"
+            android:textColorLink="@android:color/white"
             android:textSize="30sp" />
     </TableRow>
 
@@ -29,22 +32,38 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imgButton1"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/imgButton2"
             android:layout_width="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/imgButton3"
             android:layout_width="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
     </TableRow>
 
     <TableRow
@@ -53,22 +72,36 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/imgButton4"
             android:layout_width="0dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/imgButton5"
             android:layout_width="0dp"
+            android:layout_margin="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/imgButton6"
             android:layout_width="0dp"
+            android:layout_marginLeft="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
     </TableRow>
 
     <TableRow
@@ -77,22 +110,38 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/imageButton7"
+            android:id="@+id/imgButton7"
             android:layout_width="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton8"
+            android:id="@+id/imgButton8"
             android:layout_width="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
 
         <ImageButton
-            android:id="@+id/imageButton9"
+            android:id="@+id/imgButton9"
             android:layout_width="0dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:background="@drawable/empty"
+            android:onClick="imageButtonTapped"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/empty" />
     </TableRow>
 
 </TableLayout>
