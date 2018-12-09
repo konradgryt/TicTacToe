@@ -1,5 +1,6 @@
 package com.example.konrad.tictactoe
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,11 @@ class TicTacToeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tic_tac_toe)
+        try {
+            startService(Intent(this@TicTacToeActivity, SoundService::class.java))
+        } catch (e: Exception) {
+
+        }
         imageButtons.add(imgButton1)
         imageButtons.add(imgButton2)
         imageButtons.add(imgButton3)
@@ -39,12 +45,13 @@ class TicTacToeActivity : AppCompatActivity() {
         imageButtons.add(imgButton8)
         imageButtons.add(imgButton9)
         currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
+       // txtView1.setText("Next move for: X")
+        txtView1.setText("")
     }
 
     fun imageButtonTapped(view: View) {
         val selectedImageButton: ImageButton = view as ImageButton
 
-        val randomNumber = (Math.random() * 9 + 1).toInt()
         var optionNumber = 0
         when (selectedImageButton.id) {
             R.id.imgButton1 -> optionNumber = 1
@@ -60,19 +67,51 @@ class TicTacToeActivity : AppCompatActivity() {
         action(optionNumber, selectedImageButton)
     }
 
-    private fun action (optionNumber: Int, selectedImageButton: ImageButton) {
+    private fun action (optionNumber: Int, _selectedImageButton: ImageButton) {
+        var selectedImageButton = _selectedImageButton
         if (currentPlayer == CURRRENT_PLAYER.FIRST_PLAYER) {
             selectedImageButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.x))
             player1Options.add(optionNumber)
             selectedImageButton.isEnabled = false
             allDisabledImages.add(selectedImageButton)
             currentPlayer = CURRRENT_PLAYER.SECOND_PLAYER
-        } else if (currentPlayer == CURRRENT_PLAYER.SECOND_PLAYER) {
-            selectedImageButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
-            player2Options.add(optionNumber)
-            selectedImageButton.isEnabled = false
-            allDisabledImages.add(selectedImageButton)
-            currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
+            //txtView1.setText("Next move for: O")
+        } //else
+        if (currentPlayer == CURRRENT_PLAYER.SECOND_PLAYER) {
+                //For two players
+//            selectedImageButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.o))
+//            player2Options.add(optionNumber)
+//            selectedImageButton.isEnabled = false
+//            allDisabledImages.add(selectedImageButton)
+            var notSelectedImageNumbers = ArrayList<Int>()
+            for (imageNumber in 1..9) {
+                if (!player1Options.contains(imageNumber) && !player2Options.contains(imageNumber)) {
+                    notSelectedImageNumbers.add(imageNumber)
+                }
+            }
+            try {
+                var randomNumber = (Math.random() * notSelectedImageNumbers.size).toInt() //from 0 to 8 indexes
+                var imageNumber = notSelectedImageNumbers[randomNumber]
+                when(imageNumber) {
+                    1 -> selectedImageButton = imgButton1
+                    2 -> selectedImageButton = imgButton2
+                    3 -> selectedImageButton = imgButton3
+                    4 -> selectedImageButton = imgButton4
+                    5 -> selectedImageButton = imgButton5
+                    6 -> selectedImageButton = imgButton6
+                    7 -> selectedImageButton = imgButton7
+                    8 -> selectedImageButton = imgButton8
+                    9 -> selectedImageButton = imgButton9
+                }
+                selectedImageButton.setImageResource(R.drawable.o)
+                player2Options.add(imageNumber)
+                selectedImageButton.isEnabled = false
+                allDisabledImages.add(selectedImageButton)
+                currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
+                //txtView1.setText("Next move for: X")
+            } catch (e: Exception) {
+
+            }
         }
         checkWinner()
     }
@@ -124,6 +163,7 @@ class TicTacToeActivity : AppCompatActivity() {
     private fun resetGame() {
         winner = null
         currentPlayer = CURRRENT_PLAYER.FIRST_PLAYER
+        //txtView1.setText("Next move for: O")
         imageButtons.map { imageButton -> imageButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.empty)) }
         allDisabledImages.map { imageButton -> imageButton?.isEnabled = true  }
         allDisabledImages.clear()
